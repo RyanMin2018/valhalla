@@ -1,0 +1,49 @@
+extends ../layout.pug
+
+block _BLOCK_TITLE_
+	title 새로운 포스트
+
+block _BLOCK_SCRIPT_
+	script(src='/js/submit.js' type='text/javascript')
+	script(src='/js/formchecker.js' type='text/javascript')
+	script(src='/js/board.js' type='text/javascript')
+	script(src='/js/upload.js' type='text/javascript')
+	script(type='text/javascript') $(document).ready(function(){ $('#title').focus(); });
+
+block _BLOCK_LOCATION_
+	<a href='/' title='홈으로 이동'>HOME</a> / <a href='/board' title='전체 글 목록으로'>BULLETIN</a>
+
+block _BLOCK_CONTENT_
+	h1 새로운 포스트
+	div.subtitle 생각을 기록하고 나누세요!
+		span#categorycd #{category}
+	form(name='frmEnt' id='frmEnt' method='post' action='/board/' onsubmit='return regist();')
+		div
+			label(for='grpcd') 분류 *
+			select(name='grpcd' id='grpcd' title='분류')
+		div
+			label(for='title') 제목 *
+			input(type='text' name='title' id='title' placeholder='제목을 정하세요' maxlength='100' title='제목')
+		div
+			label(for='content') 내용 *
+			textarea(name='content' placeholder='내용을 쓰세요' rows='30' title='내용')
+		div
+			label(for='uf') 첨부파일
+			div(id='dragandrophandler')
+				div(id='dragtext') 첨부할 파일을 이곳으로 끌어오거나, <a href='#dragandrophandler' onclick='showUploadFormWindow();return false;' style='cursor:pointer;'>여기</a>를 클릭하세요.
+				a.btn(id='dropfilebutton' style='display:none;' href='#dragandrophandler' onclick='dropFile();return false;') 체크항목 삭제
+				a.btn(id='addfilebutton' style='display:none;' href='#dragandrophandler' onclick='showUploadFormWindow();return false;') 파일업로드
+				ul(id='ul_attached_files')
+				div(id='progressbar')
+		div
+			input(type='submit' value='등록' title='등록')
+	div(id='section_bottom_button')
+		a.btn(href='/board/?c='+category title='목록으로') 목록으로
+	div(id='div_attach_file' style='position:absolute; top:50%; left:50%; width:200px; height:120px; margin:-60px 0 0 -100px; border:solid 2px #ccc; background-color:white; z-index:20; padding:10px; display:none;')
+		div
+			form(name='frmAddFile')
+				label(for='uf' style='display:none') 파일첨부
+				input(type='file' name='uf' style='width:180px' onChange='uploadFromUploadFormWindow();')
+		div(style='margin-top:20px;')
+			a.btn(href='#dragandrophandler' onclick='hideUploadFormWindow();return false;' title='창닫기') 창닫기
+

@@ -1,0 +1,38 @@
+extends ../layout.pug
+
+block _BLOCK_TITLE_
+	title 계정관리
+
+block _BLOCK_SCRIPT_
+	script(src='/js/submit.js' type='text/javascript')
+	script(src='/js/formchecker.js' type='text/javascript')
+	script(src='/js/user.js' type='text/javascript')
+
+block _BLOCK_LOCATION_
+	<a href='/'>HOME</a> / <a href='#'>ACCOUNT MANAGEMENT</a>
+
+block _BLOCK_CONTENT_
+	h1 계정관리
+	div.subtitle 계정정보를 수정하시거나 탈퇴를 신청하실 수 있습니다.
+	form(name='frmEnt' id='frmEnt' method='post' action='/account/edit/' onsubmit='return regist();') 
+		div
+			label(for='user_id') 이메일주소 <span class='red'>*</span>
+			<input type='text' name='user_id' id='user_id' maxlength='30' value='#{userid}' readonly>
+		div
+			label(for='old_pw') 현재비밀번호 <span class='red'>*</span>
+			input(type='password' name='old_pw' id='old_pw' maxlength='16' placeholder='현재 사용하고 계신 비밀번호를 입력하십시오' title='현재비밀번호')
+		div
+			label(for='user_pw') 변경할 비밀번호 <span class='red'>*</span>
+			input(type='password' name='user_pw' id='user_pw' maxlength='16' placeholder='4~16글자 사이의 비밀번호를 입력하십시오' title='새로 사용할 비밀번호')
+		div
+			label(for='user_pw_check') 비밀번호 확인 <span class='red'>*</span>
+			input(type='password' name='user_pw_check' id='user_pw_check' maxlength='16' placeholder='비밀번호를 다시 한번 입력하십시오' title='비밀번호확인')
+		div
+			label(for='user_nm') 이름 <span class='red'>*</span>
+			<input type='text' name='user_nm' id='user_nm' value='#{usernm}' placeholder='이름을 입력하십시오' maxlength='30' title='이름'>
+		div#btns
+			input(type='submit' value='계정정보수정')
+			button( onclick='optout();return false;' title='탈퇴신청') 탈퇴신청
+
+block _BLOCK_SCRIPT_POST_
+	script if('#{e}'.length>0) { showAlert('#{e}');$('#user_id').focus(); }

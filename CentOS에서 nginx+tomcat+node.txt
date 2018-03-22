@@ -1,0 +1,100 @@
+nginx 환경에서 tomcat과 node.js를 동시에 사용하고, 각각 다른 서브 도메인으로 운영하는 경우에 참고하세요.
+이 문서는 tomcat이 8080포트, node.js가 5000포트에서 각각 작동하고 있다는 것을 가정합니다! 
+그러니까, tomcat, node.js 설치는 다른 문서를 참고하세요. 
+
+시작하기 전에, 80포트는 nginx에 양보하세요.
+httpd나 tomcat이 80포트를 사용하고 있다면, httpd는 끄시고, tomcat은 8080포트로 바꾸세요. 
+
+시작해 볼까요? nginx를 다운받아 설치합니다. 아, 그 전에.. 설치되어 있는지 알아보고 갑시다.
+
+# rpm -qa|grep nginx
+
+없다면, 
+
+# yum install nginx -y
+
+다 설치되었으면, 설정파일을 열어 변경합시다. 
+아래 내용 중 tomcat.your.domain, nodejs.your.domain은 각자의 환경에 맞게 변경하세요.
+사용하고 있는 포트도 각자의 환경에 맞는지 확인해 보세요. 주의할 점은 upstream 블럭과 server 블럭 안의 server_name 항목입니다.  
+고급설정은 다른 문서를 참고하세요.
+
+# vi /etc/nginx/conf.d/default.conf
+---------------------------------------------------------------------
+upstream tomcat {
+        ip_hash;
+        server 127.0.0.1:8080;
+}
+
+upstream nodejs {
+        ip_hash;
+        server 127.0.0.1:5000;
+}
+
+server {
+        listen 80;
+        server_name tomcat.your.domain;
+        access_log  /var/log/nginx/tomcat_access.log;
+        location / {
+                proxy_set_header        Host $http_host;
+                proxy_set_header        X-Real-IP $remote_addr;
+                proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header        X-Forwarded-Proto $scheme;
+                proxy_set_header        X-NginX-Proxy true;
+
+                proxy_pass      http://tomcat;
+                proxy_redirect  off;
+                charset         utf-8;
+        }
+}
+
+server {
+        listen 80;
+        server_name nodejs.your.domain;
+        access_log  /var/log/nginx/nodejs_access.log;
+        location / {
+                proxy_set_header        Host $http_host;
+                proxy_set_header        X-Real-IP $remote_addr;
+                proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header        X-Forwarded-Proto $scheme;
+                proxy_set_header        X-NginX-Proxy true;
+
+                proxy_pass      http://nodejs;
+                proxy_redirect  off;
+                charset         utf-8;
+        }
+}
+
+---------------------------------------------------------------------
+
+핵심은 service를 두개 여는 겁니다. 
+
+자, 이번에는 방화벽에 80포트가 열려 있는지 확인해 봅시다.
+
+# vi /etc/sysconfig/iptables
+
+내용 중, 
+
+---------------------------------------------------------------------
+-A INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT
+---------------------------------------------------------------------
+
+와 비슷한 것이 있으면 열려 있는 것입니다. 없으면 추가하고 iptables를 재실행하세요. 
+참고로, 8080과 5000이 열려 있으면 닫아 버리세요.
+
+# /etc/rc.d/init.d/iptables restart
+
+이제 nginx를 실행해 볼까요?
+
+# service nginx start
+
+문제가 있으면 설정파일을 다시 열어 확인해보고, 아니면, 각각의 서브 도메인으로 들어가지는지 확인해 보세요. 
+인간적으로.. 8080포트나 5000포트를 붙여서 테스트하지는 맙시다.
+그래도 별문제가 없으면, 부팅시 nginx가 자동실행되도록 등록해 두고 만세를 부릅니다.  
+
+# chkconfig nginx on
+
+끝. 
+
+
+아. 참고로... 서브도메인으로 안하시면, location에서 경로를 가지고 해볼 수 있을 겁니다. 
+

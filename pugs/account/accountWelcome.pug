@@ -1,0 +1,13 @@
+extends ../layout.pug
+
+block _BLOCK_TITLE_
+	title 환영합니다!
+
+block _BLOCK_LOCATION_
+	<a href='/'>HOME</a> / <a href='#'>ACCOUNT MANAGEMENT</a>
+
+block _BLOCK_CONTENT_
+	h1 환영합니다, #{wusernm}!
+	ul 
+		li 등록하신 #{wuserid} 주소로 인증요청 메일을 드렸습니다. 
+		li 메일을 열어 인증을 계속하여 주세요.

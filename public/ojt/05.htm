@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Valhalla Project</title>
+<link rel="canonical" href="http://n.mp1.co.kr/">
+<link rel="apple-touch-icon-precomposed" href="/favicon.ico">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/css/style.css" type="text/css" media="all">
+<style>
+#articlecontent ul {list-style-type:disc;margin-left:16px;}
+#articlecontent p {margin-bottom:30px;}
+.question {cursor:pointer;font-weight:bold;}
+.answer {display:none;padding-bottom:30px;}
+
+</style>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js" type="text/javascript"></script>
+<script src="/js/common.js" type="text/javascript"></script>
+<script src="/ojt/menu.js" type="text/javascript"></script>
+<script src="/js/SpeechText.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="section_pop_menu"><script>getMenu();</script></div>
+<div id="container">
+<div id="header">
+	<div id="section_logo">
+	  <img id="menu" src="/images/btnBurger.png" onclick="controlPopMenu();return false;" alt="메뉴열기" title="메뉴열기"><span id="domain">VALHALLA</span>
+	</div>
+</div>
+<div id="section_top_navigation"></div>
+<div id="alert"></div>
+<div id="article">
+	<div id="section_left"></div>
+	<div id="section_location"></div>
+	<div id="section_body">
+		<h1>웹기획에서 자주 쓰이는 용어들</h1>
+		<div><a class='btn' onclick='speakStart();return false;'>소리내어 읽기</a><a class='btn' onclick='speakStop();return false;'>그만읽기</a></div>
+		<div>&nbsp;</div>
+		<div id="articlecontent">
+
+<p>이제 딱딱한 얘기에서 살짝 벗어났습니다. 비즈니스나 마케팅과 관련된 용어를 빼고 실무에 자주 쓰는 용어들만 일부 추려 소개할까 합니다.
+
+<ul>
+	<li>
+		<a class='question'>UI/UX </a>
+		<div class='answer'>
+			UI는 User Interface의 약자이고, UX는 사용자경험(User eXperience)의 약자입니다. 
+			<br><a href='https://www.pinterest.co.kr/ramyoga9/design-and-ux/' target=_new>Design and UX</a>에는 UX Design에 관한 수많은 도식화가 있습니다. 
+		</div>
+	</li>
+	<li>
+		<a class='question'>스토리보드(Storyboard) </a>
+		<div class='answer'>
+			와이어프레임(WireFrame)이라고도 하고, 정책이 포함되므로 와이어프레임을 포함하는 용어로 설명되기도 하고, 기획서라고도 하기도 하지만, 아무튼 아이디어나 <b>요구사항정의서</b>, <b>RFP(Request For Proposal)</b>를 구체화해서 웹디자이너, 웹개발자와 대화하기 위해(?), 일시키기 위해(?) 만든 문서를 의미합니다. 
+			<br>보통 페이지 단위로 작성되는데, 구체적인 레이아웃과 기능, 심지어 문장의 길이까지 표현해야 오해가 줄어듭니다. 
+		</div>
+	</li>
+	<li>
+		<a class='question'>V/UV/PV/Duration </a>
+		<div class='answer'>
+			<b>V(Visitor)</b>는 방문자수, <b>UV(Unique Visitor)</b>는 순방문자수를 의미합니다. 특정 기간 동일한 방문자가 두번 방문했으면, V는 2이고, UV는 1이 됩니다. <b>PV(PageView)</b>는 페이지당 방문자로, 어느 페이지에 방문자가 많은지 알 수 있고, <b>Duration</b>은 머문 시간을 의미합니다. 그외, <b>Lead Time</b>은 결과까지 걸린 시간을 의미합니다.
+			이런 정보를 바탕으로 "<b>방문자통계</b>"를 산출해 보고 및 웹기획에 반영합니다. 실제로는 이것보다 <b>재방문율</b>을 높게 평가하는 것이 좋습니다.
+			<br>mp1은 구글에서 제공하는 https://www.google.com/analytics/를 이용하고 있습니다.
+		</div>
+	</li>
+	<li>
+		<a class='question'>IA(Information Architecture) </a>
+		<div class='answer'>
+			컨텐츠나 정보를 직관적으로 접근할 수 있도록 정보를 설계하고 레이블링(이름짓기)하는 것을 의미합니다. 메뉴구조라고도 합니다. 
+		</div>
+	</li>
+	<li>
+		<a class='question'>글로벌네비게이션바(GNB; Global Navigation Bar), SNB(Side Navigation Bar), Depth </a>
+		<div class='answer'>
+			GNB는 보통 페이지상단에 있는, 이동할 수 있는 대메뉴를 의미합니다. SNB는 보통 왼쪽에 붙어 있는 소메뉴를 의미합니다. 체계적인 메뉴구조를 만들어야겠지요.
+			<br>Depth는 메뉴의 깊이를 의미합니다. 대분류가 depth 1, 중분류가 depth 2. 이런 식입니다. depth가 지나치게 깊어지지 않게 많이들 노력합니다. 
+		</div>
+	</li>
+	<li>
+		<a class='question'>레이아웃(Layout) </a>
+		<div class='answer'>
+			체계적으로 설계된 시각적 화면구성을 의미합니다. 사용자가 쉽고 명확하게 이용하고, 자연스럽게 내용에 집중할 수 있고, 연관된 정보를 찾아가거나, 하고자 하는 활동이 연속되어 제공(seamless)되도록 고민하여 만들어야 합니다.
+		</div>
+	</li>
+	<li>
+		<a class='question'>Header/Footer </a>
+		<div class='answer'>
+			웹화면의 상단을 헤더, 하단을 풋터라 합니다.
+		</div>
+	</li>
+	<li>
+		<a class='question'>프런트앤드(Front-End)/백오피스(Back-Office)/백앤드(Back-End) </a>
+		<div class='answer'>
+			일반사용자가 사용하는 영역을 프런트앤드라하고, 내부사용자(관리자/운영자)가 사용하는 영역을 백오피스 또는 백앤드라 합니다. 
+		</div>
+	</li>
+	<li>
+		<a class='question'>옵트인(Opt-In) </a>
+		<div class='answer'>
+			사용자의 정보를 사용하기 위해 사용자로부터 허락을 받다는 의미로 쓰입니다. 보통 이메일 수신동의 등이 그 예입니다. 반대는 옵트아웃.
+		</div>
+	</li>
+	<li>
+		<a class='question'>SSO(Single Sign-on) </a>
+		<div class='answer'>
+			한 번의 로그인으로 여러 서비스를 이용하게 하는 것을 말합니다. 그룹웨어를 쓰다가 mp1관리자를 쓰려는데 또 로그인하라면 짜증나겠죠?
+		</div>
+	</li>
+	<li>
+		<a class='question'>개인화(Personalization)/맞춤화(Customization)</a>
+		<div class='answer'>
+			개인화는 소비자의 소비패턴을 분석해 제품의 배치를 다르게 생산하는 것을 의미합니다. 아마존의 추천도서 등.
+			<br>맞춤화는 소비자가 직접 또는 생산자가 소비자의 주문을 통해 특정 제품을 자기 입맛에 따라 바꾸는 것을 의미합니다. 
+			<br>웹에서는 보통 사용자들이 바쁘기 때문에 맞춤화 보다는 개인화에 초점을 맞추어 기획하는 것이 바람직합니다. 
+		</div>
+	</li>
+	<li>
+		<a class='question'>WBS(Work Breakdown Structure)</a>
+		<div class='answer'>
+			해야될 일의 범위와 결과물을 세세하게 자른 작업분해도를 의미합니다. 대분류와 소분류로 나누고, 해야될 일과 담당자, 일정을 기록한 문서를 의미합니다. 전문적인 도구를 사용하기도 하고, 엑셀을 사용하기도 합니다. 이 문서로 개발진척도를 보고하기도 합니다.
+			<br>개발자들은 보통 IDE(Integrated Development Environment, 통합개발환경)에서 task 관리기능이 제공되기 때문에, 별도로 요구하지 않는한 IDE에서 일정을 관리합니다. 
+		</div>
+	</li>
+	<li>
+		<a class='question'>RFM(Recency, Frequency, Monetary)</a>
+		<div class='answer'>
+			거래의 최신성(Recency), 거래빈도(Frequency), 거래규모(Monetary)를 기준으로 <b>고객의 가치를 산출해내는 방법</b>을 의미합니다. 이를 통해 고객을 분류하고, 분류에 따른 고객특성을 파악해 차별화된 서비스를 제공하게 됩니다.
+		</div>
+	</li>
+	<li>
+		<a class='question'>SEO(Search Engine Optimization)</a>
+		<div class='answer'>
+			검색엔진최적화라는 건데, 검색엔진의 상단 노출 알고리즘을 분석해 웹페이지를 최적화하는 것을 말합니다. 네이버는 블로그를 먼저 노출시키니까, 쓸데 없는 노력일 수 있습니다.
+		</div>
+	</li>
+	<li>
+		<a class='question'>CPC/CPM/CPS/CPA</a>
+		<div class='answer'>
+			이건 온라인광고에서 사용하는 용어입니다. 공통적으로 CP가 들어가는데, 이건 Cost Per를 의미하고, <b>CPC(Click)</b>는 클릭할 때마다, <b>CPM(Mile)</b>은 노출될 때마다, <b>CPS(Sale)</b>는 실제 결제가 되었을 때마다, <b>CPA(Action)</b>는 회원가입이나 이벤트참여가 되었을 때마다 광고비를 받거나 청구하는 걸 말합니다. 
+		</div>
+	</li>
+	<li>
+		<a class='question'>브랜드인지도/브랜드충성도</a>
+		<div class='answer'>
+			마케팅용어이기는 하나, 브랜드인지도는 브랜드를 아느냐?이고 브랜드충성도는 그 브랜드를 좋아하나? 유사 브랜드 중 몇 번 째로 좋아하나? 왜 좋아하나? 등과 관련된 용어입니다. 
+			<br>웹기획은 브랜드인지도보다는 브랜드충성도에 집중해야 한다는 의미로 소개드립니다. 고객만족도, 신뢰도, 호감도, 품질/가치 등을 주로 조사해 활용합니다. <a href='https://ko.surveymonkey.com/mp/5-key-metrics-measuring-brand-loyalty/' target=_new>참고</a> 
+		</div>
+	</li>
+	<li>
+		<a class='question'>왜 영어를 많이 쓰나?</a>
+		<div class='answer'>
+			모르겠습니다. 자주 듣다보면 그러려니 하게 됩니다.
+		</div>
+	</li>
+</ul>
+
+<div>&nbsp;</div>
+
+		</div>
+	</div>
+<div id="section_right"></div>
+</div>
+<div id="footer">
+	<div id="copyright">COPYRIGHTⓒ<b>VALHALLA</b>. ALL RIGHTS RESERVED.</div>
+	</div>
+</div>
+<div id="bottom">
+	<img id='goprevarticle' src='/images/prev.png' onclick="location.href='04.htm';">
+	<img id='gonextarticle' src='/images/next.png' onclick="location.href='06.htm';">
+
+</div>
+<img id="gotop" src="/images/top.png" onclick="goTop();" alt="go top" title="go top">
+<script src="/js/onloaded.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js" type="text/javascript"></script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+/node_modules
+/uploads
+*.pem
+*.backup 
+CVS  
+.jshintrc
+.project
+.settings
+.sublime-project
+.tern-project
+     

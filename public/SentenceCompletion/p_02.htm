@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>RST</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="canonical" href="http://n.mp1.co.kr/">
+<link rel="apple-touch-icon-precomposed" href="/favicon.ico">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/css/style.css" type="text/css" media="all">
+<link rel="stylesheet" href="/css/jquery-ui.min.css" type='text/css'>
+<link rel="stylesheet" href="/js/vendor/alertify.css?0.5" type="text/css" media="screen">
+<style>
+#draggablearea {position:relative;width:100%;height:300px;}
+.left {postion:absolute;display:inline-block;float:left;width:calc(100% - 70px);left:0px;top:0px;}
+.right {postion:absolute;display:inline-block;float:right;width:50px;right:0px;top:0px;}
+.left div span {display:block;width:calc(100% - 20px);padding:11px;padding-top:12px;background-color:#eee;border:1px solid #eee;margin-bottom:5px;}
+.left span.draggable {background-color:#fff;cursor:grab;cursor:-webkit-grab; cursor:-moz-grab;transition:background-color .4s ease-in-out;}
+.left span.draggable:hover {background-color:#8ac6f8;color:#fff;}
+.draggable.drag {border-radius:20px;text-align:center;padding:7px;cursor:grabbing;cursor:-webkit-grabbing;cursor:-moz-grabbing;}
+.AnswerSheet {position:relative;border:1px solid #ccc;width:50px;height:50px;margin-bottom:5px;z-index:0;background-color:#eee;}
+.AnswerSheet span {position:absolute;top:10px;width:100%;text-align:center;}
+.AnswerSheet.droppable {background-color:#fff;}
+.commentarea {display:none;}
+.ui-tooltip {border:1px solid #ddd;border-radius:15px;border-top-right-radius:0;color:#888;background-color:#eee;font-size:0.8em;}
+.right div a.btn {position:absolute;padding:5px 10px;width:33px;text-align:center;}
+textarea {width:100%;height:100px;background-color:#eef;}
+#evaluate {border-top:1px solid #eee;border-bottom:1px solid #eee;color:#123456;padding:20px;background-color:#fee;}
+#section_bottom_button {font-size:1em;margin-top:30px;}
+#result {margin-top:-40px;}
+@media only screen and (max-width : 900px) {
+	.left span, .commentarea, .preview  {font-size:0.8em;}
+	.left span, #result, #evaluate {line-height:1.2em;}
+}
+</style>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js" type="text/javascript"></script>
+<script src="/js/jquery-ui.min.js" type="text/javascript"></script>
+<script src="jquery.ui.touch-punch.min.js" type="text/javascript"></script>
+<script src="/js/common.js" type="text/javascript"></script>
+<script src="speak.js" type="text/javascript"></script>
+<script src="/js/vendor/alertify.js" type="text/javascript"></script>
+
+<script>
+
+$(document).ready(function(){
+
+	$(window.document).on("selectstart", function(event){return false;});
+	$(".right>div>a").hide();
+//	$(".draggable:first").attr('title', '잡아 끌어서 오른쪽 상자에 놓으세요.');
+//	$(".draggable").tooltip({position:{my:"left top-5px"}});
+
+	function toDraggable() {
+		$(".draggable").draggable({
+			start : function(event, ui) {
+				from = $(this).attr("id");
+				fromParent  = $(this).parent().attr("id");
+				fromContent = "<span id='"+from+"'>"+from+"</span>";
+			},
+			revert: true,
+			helper: function(event) {
+				return "<span id='"+$(this).attr("id")+"' class='draggable drag' style='width:20px;height:20px;paddind:10px;background-color:#4682B4;color:#fff;border:0;'>"+$(this).attr("id")+"</span>";
+			},
+			revertDuration: 0,
+			stack:"span",
+			distance:0,
+			cursorAt:{left:34,top:34}
+		});
+	}
+
+	$(".AnswerSheet.droppable").droppable({
+		drop : function(event, ui) {
+			if (checkDuplication(from)) {
+				$(this).html(fromContent);
+				$(this).css('z-index', 0);
+			} else {
+				$(".draggable.drag").css('background-color', '#B48246');
+				$(".draggable.drag").effect("shake");
+			}
+			toDraggable();
+			toDroppable();
+			commitReady();
+		}
+	});
+	
+	function toDroppable() {
+		$(".AnswerSheet.droppable > span").on("click", function(){
+			$(this).css('width', '50px');
+			$(this).css('height', '50px');
+			$(this).css('border-radius', '15px');
+			$(this).css('background-color', '#B48246');
+			$(this).effect("explode", function(){
+				$(this).remove();
+				commitReady();
+			});
+		});
+
+//		$(".AnswerSheet.droppable > span").attr('title', '클릭하면 삭제할 수 있습니다.');
+//		$(".AnswerSheet.droppable > span").tooltip({position:{my:"left-125px top-5px"}});
+	}
+
+	
+	toDraggable();
+	toDroppable();
+	
+
+});
+
+function checkDuplication(id) {
+	var cnt = $(".AnswerSheet > span").length;
+	for (var i=0; i<cnt; i++) {
+		if (id == $(".AnswerSheet > span:eq("+i+")").attr('id')) {
+			return false;
+		}
+	}
+	return true;
+}
+
+function commitReady() {
+	if ($(".QuestionOption").length == $(".AnswerSheet > span").length) {
+		$(".right>div>a").show().effect("bounce");
+	} else {
+		$(".right>div>a").hide();
+	}
+}
+
+function commit() {
+	var cnt = $(".AnswerSheet > span").length;
+	var text = "";
+	var answer = "";
+	for (var i=0; i<cnt; i++) {
+		var cid = document.getElementById("AnswerSheet_" + (i+1)).childNodes[0].id;
+		answer += cid;
+		answer += (i<cnt-1) ? "-" : "";
+		text   += $("#QuestionOption_" + cid).text().substring($("#QuestionOption_" + cid).text().indexOf(".")+2) + "<br>";
+	}
+
+	$("#answer").val(answer);
+	$("#result").html("<font color=green>아래처럼 선택한 순서대로 글을 다시 보여줄 수 있습니다. 가릴 수도 있고요.</font><br>" + text);
+	evaluate();
+	
+	$("#draggablearea, .submitsection, .subtitle").hide(500, function(){
+		$(".commentarea").show(500);
+	});
+
+}
+
+function evaluate() {
+	var result = $("#answer").val();
+	$('#evaluate').html("<font color=green>" + result + " : 평가결과를 바로 보여줄 수 있습니다. 가릴 수도 있고요.</font>");
+}
+
+function complete() {
+	var result = "아래 내용들을 데이터베이스에 저장할 수 있습니다.<br>문제 : " + $("#question").val() + "<br>학생아이디(예) : "+ $("#userid").val() +"<br>선택한 순서 : " + $("#answer").val() + "<br>의견 : " + $("#comment").val() + "<br><br>";
+	alertify.alert(result, function() {
+		// 
+	});
+}
+
+function getSortedText() {
+	var cnt = $(".AnswerSheet > span").length;
+	var text = "";
+	for (var i=0; i<cnt; i++) {
+		var cid = document.getElementById("AnswerSheet_" + (i+1)).childNodes[0].id;
+		text   += "<li>" + $("#QuestionOption_" + cid).text() + "</li>";
+	}
+	return text;	
+}
+
+var toggle = 0;
+function preview() {
+	if (toggle==0) {
+		var html = "<div class='preview'><ul>"+ getSortedText() +"</ul></div>";
+		$(".left>div").effect("fold").hide(2000);
+		$(".left").append(html);
+		$("#btnPreview").text("문항보기");
+		toggle = 1;
+	} else {
+		$(".left.preview").hide(100);
+		$(".left>div").fadeIn(1000);
+		$(".preview").remove();
+		$("#btnPreview").text("미리보기");
+		toggle = 0;
+	}
+}
+
+</script>
+
+</head>
+<body>
+
+
+</head>
+<body>
+<div id="section_pop_menu"></div>
+<div id="container">
+	<div id="article">
+		<div id="section_left"></div>
+		<div id="section_location"></div>
+		<div id="section_body">
+			<h1>읽기 2-2. 속담 </h1>
+			<div class='subtitle'>왼쪽의 항목을 끌어 오른쪽 상자 안에 순서에 맞게 넣으세요.<br>상자를 클릭하면 삭제할 수 있습니다.</div>
+			<div id="articlecontent">
+
+				<div>&nbsp;</div>
+
+				<div id='draggablearea'>
+					<div class='left'>
+						<div id='QuestionOption_1' class='QuestionOption'><span id='1'>1. 예로부터 전해져 오는 속담은 우리 삶에 교훈을 줍니다. </span></div>
+						<div id='QuestionOption_2' class='QuestionOption'><span id='2' class='draggable'>2. '티끌'은 작은 먼지를 말하고, '태산'은 큰 산을 뜻합니다. </span></div>
+						<div id='QuestionOption_3' class='QuestionOption'><span id='3' class='draggable'>3. 이 속담은 작은 노력이 쌓이면 큰 성과를 이룰 수 있다는 교훈을 담고 있습니다. </span></div>
+						<div id='QuestionOption_4' class='QuestionOption'><span id='4' class='draggable'>4. 조상들은 삶에서 얻은 지혜를 짧은 속담에 담아 표현하였습니다. </span></div>
+						<div id='QuestionOption_5' class='QuestionOption'><span id='5' class='draggable'>5. '티끌 모아 태산'이라는 속담이 있습니다. </span></div>
+					</div>
+					<div class='right'>
+						<div class='AnswerSheet' id='AnswerSheet_1'><span id='1'>1</span></div>
+						<div class='AnswerSheet droppable' id='AnswerSheet_2'></div>
+						<div class='AnswerSheet droppable' id='AnswerSheet_3'></div>
+						<div class='AnswerSheet droppable' id='AnswerSheet_4'></div>
+						<div class='AnswerSheet droppable' id='AnswerSheet_5'></div>
+						
+						<div style='height:70px;'><a href='javascript:preview();' id='btnPreview' class='btn'>미리보기</a></div>
+						<div><a href='javascript:commit();' class='btn'>확인</a></div>
+					</div>
+				</div>
+				
+				
+				<form name='frmEnt'>				
+				<input type='hidden' name='question' id='question' value='1'>
+				<input type='hidden' name='userid'   id='userid'   value='student_001'>
+				<input type='hidden' name='answer'   id='answer'   value=''>
+				<div id='result' class='commentarea'></div>
+				<div id='evaluate' class='commentarea'></div>
+				<div class='commentarea'><textarea id='comment' name='comment' placeholder='의견을 자유롭게 적어주세요.'></textarea></div>
+				<div class='commentarea' id='section_bottom_button'><a href='javascript:complete();' class='btn'>의견제출</a><a href='javascript:location.reload();' class='btn'>다시해보기</a></div>
+				<div>&nbsp;</div>
+				</form>
+	
+	
+			</div>
+		</div>
+		<div id="section_right"></div>
+	</div>
+</div>
+<div id="bottom">
+
+</div>
+<img id="gotop" src="/images/top.png" onclick="goTop();" alt="go top" title="go top">
+</body>
+</html>

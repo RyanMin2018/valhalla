@@ -1,0 +1,23 @@
+extends ./layout.pug
+
+block _BLOCK_TITLE_
+	title 채팅
+
+block _BLOCK_SCRIPT_
+	script(src='/js/socket.io.js' type='text/javascript')
+	script(src='/js/garrulously.js' type='text/javascript')
+
+block _BLOCK_LOCATION_
+	<a href='/'>HOME</a> / <a href='/chat'>CHAT NOW!</a>	
+
+block _BLOCK_CONTENT_
+	h1 채팅룸 이름 : #{room}
+	form(name='frmEnt' onsubmit='return false;')
+		div(id='chatgroup')
+		div(id='chats')
+
+block _BLOCK_SCRIPT_POST_
+	div(id='sendmessage')
+		input(type='text' name='msg' id='msg' onkeypress='enter(event);' placeholder='내용을 입력하고 엔터를 치세요')
+		<input type='hidden' name='strSender' id='strSender' value='#{usernm}'>
+		<input type='hidden' name='room' id='room' value='#{room}'>

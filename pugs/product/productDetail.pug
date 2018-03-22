@@ -1,0 +1,56 @@
+extends ../layout.pug
+
+block _BLOCK_TITLE_
+	title Item Details
+	
+block _BLOCK_SCRIPT_
+	script(src='/js/submit.js' type='text/javascript')
+	script(src='/js/formchecker.js' type='text/javascript')
+	script(src='/js/product.js' type='text/javascript')
+	script(src='/js/upload.js' type='text/javascript')
+
+block _BLOCK_LOCATION_
+	<a href='/'>HOME</a> / <a href='/products'>ITEMS IN MY BAG</a>	
+
+block _BLOCK_CONTENT_
+	h1 Item Details
+	div.subtitle YOU CAN VIEW OR MODIFY THE CONTENTS OF THE ITEM.
+	form(name='frmEnt' id='frmEnt' method='post' action='/products/'+prd_id+'?_method=put')
+		div
+			label(for='prd_nm') Item Name *
+			input(type='text' name='prd_nm' id='prd_nm' value=n.PRD_NM)
+		div
+			label(for='price') Price(￦)
+			input(type='text' name='price' id='price' value=n.PRICE onKeyDown='numberOnly(this);')
+		div
+			label(for='upload') Attachments
+			div(id='dragandrophandler')
+				div(id='dragtext') Drag the file here. Or Click 
+					a(href='#dragandrophandler' onclick='showUploadFormWindow();return false;') Here
+				a.btn(id='dropfilebutton' style='display:none;' href='#dragandrophandler' onclick='dropFile();return false;') Delete Checked Files.
+				a.btn(id='addfilebutton' style='display:none;' href='#dragandrophandler' onclick='showUploadFormWindow();return false;') Upload File
+				ul(id='ul_attached_files')
+					- cnt=0
+					- if (flist)
+						each f in flist
+							li &nbsp; <input type='checkbox' name='file' id='file' value='#{f.FILE_PATH}#{global.strSeparator}#{f.FILE_MIMETYPE}#{global.strSeparator}#{f.FILE_SIZE}#{global.strSeparator}#{f.FILE_NM}'> <a href='/upload/#{f.FILE_PATH}#{global.strSeparator}#{f.FILE_MIMETYPE}' target='actionframe'>#{f.FILE_NM}</a> (#{global.comjs.addComma(f.FILE_SIZE)} byte)
+							- cnt++
+				div(id='progressbar')
+		div#btns
+			a.btn.f(href='#btns' onclick='regist();return false;') Modify
+			a(href='#btns' onclick="drop('/products/"+n._id+"');return false;" class='btn') Throw Away
+	</form>
+	div(id='section_bottom_button')
+		a.btn(href='/products/') Go To List
+	div(id='div_attach_file' style='position:absolute; top:50%; left:50%; width:200px; height:120px; margin:-60px 0 0 -100px; border:solid 2px #ccc; background-color:white; z-index:20; padding:10px; display:none;')
+		div
+			form(name='frmAddFile')
+				input(type='file' name='uf' style='width:180px' onChange='uploadFromUploadFormWindow();')
+		div(style='margin-top:20px;')
+			a.btn(href='#dragandrophandler' onclick='hideUploadFormWindow();return false;') close
+
+block _BLOCK_SCRIPT_POST_
+	script if(#{cnt}>0) setExistedFiles();
+
+		
+		

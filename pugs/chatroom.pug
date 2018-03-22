@@ -1,0 +1,12 @@
+extends ./layout.pug
+
+block _BLOCK_TITLE_
+	title 채팅룸
+
+block _BLOCK_LOCATION_
+	<a href='/'>HOME</a> / <a href='/chat'>CHAT NOW!</a>	
+
+block _BLOCK_CONTENT_
+	h1 채팅룸
+	div#articlecontent
+		a(href='/chat/Free Chat' title='채팅방입장') 채팅방이 열려 있습니다. 입장하세요.

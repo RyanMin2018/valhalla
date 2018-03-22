@@ -1,0 +1,52 @@
+extends ./layout.pug
+
+block _BLOCK_TITLE_
+	title Valhalla Project
+	meta(name='keywords' content='in my bag, eraser, pencil, pen, ruler')
+	meta(name='description' content='We love your thought!')
+	meta(name='robots' content='index,follow')
+	meta(property='og:title' content='Your Sology')
+	meta(property='og:url' content='http://n.mp1.co.kr/')
+	meta(property='og:image' content='/images/logo.png')
+	meta(property='og:description' content='We love your thought!')
+	link(rel='canonical' href='http://n.mp1.co.kr/')
+block _BLOCK_CSS_
+	style.
+		#articlecontent ul {list-style-type:disc;margin-left:16px;}
+	
+block _BLOCK_CONTENT_
+	h1 Valhalla Project
+	div#articlecontent.
+		Hello#{(userid!=undefined && usernm!=undefined) ? ', '+usernm +'.' : '.'}<br/>
+		This is for learning such as <a href='https://nodejs.org/ko/'>node.js</a>,
+		<a href='https://www.mongodb.com/' target='_blank'>mongo-db</a>, 
+		<a href='https://ko.wikipedia.org/wiki/REST' target='_blank'>REST</a>, 
+		<a href='https://nginx.org/en/' target='_blank'>nginx</a>, 
+		<a href='https://jquery.com/' target='_blank'>jQuery</a>, 
+		<a href='https://www.w3.org/' target='_blank'>W3C Web Standard</a>,
+		<a href='http://www.wah.or.kr/' target='_blank'>Web Accessibility</a>,
+		<a href='https://kr.vuejs.org/' target='_blank'>Vue</a>.
+		<br/><br/>
+		<p>
+			<ul>
+				<li><a href='/board/'><i>Bulletin Board</I></a> based on 
+						<a href='http://expressjs.com/ko/' target='_blank'>express</a>, 
+						<a href='https://pugjs.org/' target='_blank'>pug</a>, 
+						<a href='https://ko.wikipedia.org/wiki/REST' target='_blank'>REST metholoogy</a>.</li>
+				<li><a href='/chat/'><i>Chat</i></a> based on socket.io.</li>
+				<li><a href='/sheet/'><i>Browser Live Grid</i></a> based on <a href='http://sheetjs.com' target='_blank'>xlsx.js</a>, 
+					<a href='http://handsontable.com/' target='_blank'>handsometable.js</a>, 
+					<a href='http://fgnass.github.io/spin.js/' target='_blank'>spin.js</a>.</li>
+				<li><a href='/vue/'><i>Vue</i></a>, just started.</li>
+			</ul>
+
+block _BLOCK_SCRIPT_POST_
+	script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js' type='text/javascript')
+	script.
+		$(function(){ 
+			$('img.lazyload').lazyload({effect:'fadeIn',effectTime:1000,load:function(){
+					$(this).css('min-height',0);
+				}
+			}); 
+		});
+		// speak('en-US', 'articlecontent');

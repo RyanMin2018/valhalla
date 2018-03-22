@@ -1,0 +1,125 @@
+extends ./layout.pug
+
+block _BLOCK_TITLE_
+	title Valhalla Project - Vue
+	
+block _BLOCK_CONTENT_
+	h1 Valhalla Project - vue.js
+	div#articlecontent
+		div#app
+			ul
+				li Use 
+					i v-html & v-model
+				li(v-html='name')
+				li
+					input(type='text' name='name' v-model='name')
+				hr
+				li Use 
+					i v-if, v-else-if, v-else & v-on, v-show. 
+					| Guess Game! Your Choice : 
+					span(v-show='visible') {{value}}
+				li(v-if='value > 3') Down!!
+				li(v-else-if='value == 3') Yes, That's right
+				li(v-else v-show='visible') Up! Up!
+				li
+					button(v-on:click='plus') +1
+					button(@click='minus') -1
+				hr
+				li Use JavaScript function : {{Date()}}
+				hr
+				li Use 
+					i v-bind or ':'
+					img(v-bind:src='arrow' width=50 height=50)
+					img(:src='arrow' width=50 height=50)
+				hr
+				li Use 
+					i v-bind & Ternary operator
+					img(:src='direction?next:prev')
+				li
+					input(type='checkbox' v-model='direction') 
+					| check to next, else to prev.
+				hr
+				li Use 
+					i v-for
+					ul
+						li(v-for='(l, a) in todos') {{a}}. {{l.todo}}
+				hr
+				li Use Templete
+		div#views
+			button(@click='changeType("t");') table style
+			button(@click='changeType("c");') card style
+			div
+				card-wrapper(v-if='currentViewType=="c"' :items='items')
+				table-wrapper(v-if='currentViewType=="t"' :items='items')
+					
+				template#card-wrapper
+					span(v-for="item in items")
+						img(:src="item.resource" :title='item.title')
+						
+				template#table-wrapper
+					ul
+						li(v-for='item in items') {{item.title}}
+
+block _BLOCK_SCRIPT_POST_
+	script(src='https://unpkg.com/vue/dist/vue.js')
+	script.
+	
+		new Vue({
+			el: '#app',
+			mounted: function () {
+			},
+			data: function() {
+				return {
+					name: 'Valhalla',
+					visible: false,
+					value: 0,
+					arrow:'/images/expand_arrow1600.png',
+					direction: false,
+					next: '/images/btnNext.png',
+					prev: '/images/btnPrev.png',
+					todos:[{todo:'first'},{todo:'second'},{todo:'Third'}]
+				}
+			}, 
+			methods: {
+				plus: function() {
+					this.visible = true;
+					if (this.value<5) this.value++;
+				},
+				minus:function() {
+					this.visible = true;
+					if (this.value>0) this.value--;
+				}
+			}
+		});
+		
+		
+		Vue.component('card-wrapper', {
+			template: '#card-wrapper',
+			props: ['items']
+		});
+		
+		Vue.component('table-wrapper', {
+			template: '#table-wrapper',
+			props: ['items']		
+		});
+
+		new Vue({
+			el: '#views',
+			mounted: function () {
+			},
+			data: function() {
+				return {
+					currentViewType: 't',
+					items:[
+						{resource:'http://lorempicsum.com/futurama/400/400/1', title:'a'},
+						{resource:'http://lorempicsum.com/futurama/400/400/2', title:'b'},
+						{resource:'http://lorempicsum.com/futurama/400/400/3', title:'c'}
+					]
+				}
+			}, 
+			methods: {
+				changeType: function(t) {
+					this.currentViewType = t;
+				}
+			}
+		});

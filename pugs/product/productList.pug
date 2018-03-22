@@ -1,0 +1,37 @@
+extends ../layout.pug
+block _BLOCK_TITLE_
+	title Item List
+block _BLOCK_SCRIPT_
+	script(src='/js/submit.js' type='text/javascript')
+block _BLOCK_LOCATION_
+	<a href='/'>HOME</a> / <a href='/products'>ITEMS IN MY BAG</a>
+block _BLOCK_CONTENT_
+	h1 Items In My Bag
+	div.subtitle(id='sum')
+	table(id='ProductList' summary='Items in my bag.')
+		colgroup
+			col(style='width:*')
+			col(style='width:100px')
+			col(style='width:50px;')
+		tbody
+			tr
+				th(scope='col' style='text-align:left') Product Name
+				th(scope='col' style='text-align:right;') Price(￦)
+				th(scope='col')
+			- cnt=0
+			- sum=0
+			each n in list
+				- cnt++
+				- sum+=n.PRICE
+				tr
+					td.t <a href='/products/#{n._id}'>#{n.PRD_NM}</a>
+					td.n #{global.comjs.addComma(n.PRICE)}
+					td.btn <a onclick="drop('/products/#{n._id}')"><img src='/images/btnDrop.png' width='20' height='20' alter='Delete' style='cursor:pointer;'></a>
+			- if(cnt==0) 
+				tr
+					td.t(colspan='3') There are no items in my bag.
+	div(id='section_bottom_button')
+		a.btn(href='/products/registration') More Buy
+	div
+		form(name='frmEnt' id='frmEnt' method='post') 
+		script(type='text/javascript') $('#sum').html('TOTAL : <b>#{global.comjs.addComma(cnt)}</b> ITEMS, ￦ <b>#{global.comjs.addComma(sum)}</b>');

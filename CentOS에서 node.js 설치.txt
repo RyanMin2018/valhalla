@@ -1,0 +1,140 @@
+﻿CenOS에서 node.js와 MongoDB를 설치하여 봅시다. 
+
+먼저 OS버전부터 살펴봅시다. 
+
+# grep . /etc/*-release
+
+CentOS 6.9이군요. 혹시 몰라서 그냥 알아봤습니다. 
+
+이제 nodejs와 npm을 설치해 봅시다. 그런 거 없다고 할 수도 있으니까, 아래처럼 하세요. 
+
+# rpm -Uvh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+# yum install nodejs -y
+# yum install npm -y
+
+MongoDB도 설치해 봅시다. 먼저 실행되고 있는지 살짝 살펴보고, 
+
+# service mongod status
+
+깔아 봅시다. 
+
+# yum install mongodb mongodb-server -y 
+
+버전이 어떻게 되는지 또 살짝 확인해 봅시다. 
+
+# mongo --version
+
+이제, MongoDB의 저장소를 변경할 겁니다. 저는 /home에 저장공간을 많이 만들어 놓아서 이곳을 이용할 겁니다. 
+원하는 위치에 폴더를 만들고 퍼미션을 주고, 설정파일에 저장소의 위치를 알려주는 순서대로 하십시다.
+myaccount 이하 경로는 알아서 하시는 걸로. 
+
+# mkdir /home/myaccount/nodejs/mongodb/data
+# chmod 777 /home/myaccount/nodejs/mongodb/data
+# vi /etc/mongodb.conf
+-------------------------------------
+#dbpath =/var/lib/mongodb
+dbpath =/home/myaccount/nodejs/mongodb/data
+-------------------------------------
+
+node.js에서 사용할 포트를 외부로 열어줍시다. 나중에 nginx를 사용할 꺼면 안해도 됩니다. 
+5000번을 사용하고 싶다고 가정하고, 
+
+# vi /etc/sysconfig/iptables
+-------------------------------------
+# nodejs
+-A INPUT -m state --state NEW -m tcp -p tcp --dport 5000 -j ACCEPT
+# nodejs chat
+-A INPUT -m state --state NEW -m tcp -p tcp --dport 5900 -j ACCEPT
+-------------------------------------
+
+채팅에서 사용할 포트도 살짝 묻어서 열어봅니다. iptable을 재실행합니다. 
+
+# /etc/rc.d/init.d/iptables restart
+
+이제, MongoDB를 실행해 봅니다. 문제가 없으면, 부팅시 실행되도록 추가해 둡시다. 
+
+# service mongod start
+# chkconfig mongod on
+
+테스트해봅시다. 먼저 MongoDB입니다. 
+
+# mongo
+
+다른 DB를 쓰다가 이걸 쓰려니 어리버리해집니다. 열심히 찾아서 공부해 보셔요.
+
+이제 node.js를 실행하기 위해 간단히 파일을 만들어... 가 아니라 만들어 놓은 것을 올려 놓아 봅니다. 
+파일들을 업로드할 공간을 만듭니다. 
+
+# mkdir /home/myaccount/nodejs
+# cd /home/myaccount/nodejs
+# mkdir test
+
+파일들을 test에 몽땅 올립니다. 
+로그를 기록할 폴더도 만들어봅니다. 
+
+# mkdir logs
+# chmod 777 logs
+
+혹시 모르니, npm 캐시를 지워봅시다. 요거.. npm이 뭔지 알아야 되는 거긴 한데. 그건 알아서 하시는 걸로. 
+
+# npm cache clean -f
+# npm install -g n
+# n stable
+
+나중엔 두번 째 꺼는 안해도 되는거 아시죠?
+
+보통 app.js를 만들길래 저도 app.js로 만들었습니다. 
+올릴 것이 없다면, 아래 파일을 참고 하세요.
+
+# npm install express
+# vi /home/myaccount/nodejs/test/app.js
+-------------------------------------
+var express = require('express');
+var app = express();
+
+app.get('/', function (req, res) {
+  res.send('Hello World!');
+});
+
+app.listen(5000, function () {
+  console.log('Example app listening on port 5000!');
+});
+-------------------------------------
+
+실행해 봅니다. 
+
+# cd /home/myaccount/nodejs/test
+# node app.js
+
+node를 실행하는 경로가 root이니, 편하다고 해야할지...
+암튼, 브라우저로.. 도메인에 :5000을 붙여 테스트해보셔요. 아래처럼요.
+
+http://127.0.0.1:5000/
+ 
+됩니까? 그렇게 쉽지는 않았을낀대.. 암튼. 된다면 다행이고, 매번 이렇게 하기 귀찮으니까, run.sh를 만드는 걸로...
+
+# vi run.sh
+-------------------------------------
+#!/bin/sh
+cd /home/myaccount/nodejs/iteminmybag
+node app.js > /home/myaccount/nodejs/logs/test.log &
+-------------------------------------
+
+뒤에 &붙이면 백그라운드로 돈답디다. 
+실행 권한을 주고 실행해 봅니다. 
+
+# chmod 755 run.sh
+# ./run.sh
+
+로그파일도 그럴싸하게 열어봅니다. 
+
+# tail -f ../logs/test.log
+
+로그가 쌓이게 하려면 console.log를 이용하시면 됩니다. 
+백그라운드로 돌고 있는 node.js를 꺼야 하는 경우가 (제 경우에는 특히) 많습니다. 
+아래와 같이 kill해 버리면 꺼집니다. 
+
+# ps -ef|grep node
+# kill {pid}
+
+껐으니, 끝.

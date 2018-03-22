@@ -1,0 +1,35 @@
+extends ../layout.pug
+
+block _BLOCK_TITLE_
+	title 계정생성
+
+block _BLOCK_SCRIPT_
+	script(src='/js/submit.js' type='text/javascript')
+	script(src='/js/formchecker.js' type='text/javascript')
+	script(src='/js/user.js' type='text/javascript')
+
+block _BLOCK_LOCATION_
+	<a href='/'>HOME</a> / <a href='/account/'>ACCOUNT MANAGEMENT</a>
+
+block _BLOCK_CONTENT_
+	h1 계정생성
+	form(name='frmEnt' id='frmEnt' method='post' action='/account' onsubmit='return regist();') 
+		div
+			label(for='user_id') 이메일주소 <span class='red'>*</span>
+			input(type='text' name='user_id' id='user_id' maxlength='30' placeholder='아이디로 사용할 이메일주소를 입력하십시오' title='이메일주소')
+		div
+			label(for='user_pw') 비밀번호 <span class='red'>*</span>
+			input(type='password' name='user_pw' id='user_pw' maxlength='16' placeholder='4~16글자 사이의 비밀번호를 입력하십시오' title='비밀번호')
+		div
+			label(for='user_pw_check') 비밀번호 확인 <span class='red'>*</span>
+			input(type='password' name='user_pw_check' id='user_pw_check' maxlength='16' placeholder='비밀번호를 다시 한번 입력하십시오' title='비밀번호확인')
+		div
+			label(for='user_nm') 이름 <span class='red'>*</span>
+			input(type='text' name='user_nm' id='user_nm' placeholder='이름을 입력하십시오' maxlength='30' title='이름')
+		div
+			input(type='submit' value='가입신청')
+
+block _BLOCK_SCRIPT_POST_
+	script.
+		if('#{e}'.length>0) { showAlert('#{e}');$('#user_id').focus(); }
+		$('#user_id').focusout(function(){checkDuplication()});

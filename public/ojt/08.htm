@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Valhalla Project</title>
+<link rel="canonical" href="http://n.mp1.co.kr/">
+<link rel="apple-touch-icon-precomposed" href="/favicon.ico">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/css/style.css" type="text/css" media="all">
+<style>
+#articlecontent ul {list-style-type:disc;margin-left:16px;}
+#articlecontent p {margin-bottom:30px;}
+.question {cursor:pointer;font-weight:bold;}
+.answer {display:none;padding-bottom:30px;}
+
+</style>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js" type="text/javascript"></script>
+<script src="/js/common.js" type="text/javascript"></script>
+<script src="/ojt/menu.js" type="text/javascript"></script>
+<script src="/js/SpeechText.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="section_pop_menu"><script>getMenu();</script></div>
+<div id="container">
+<div id="header">
+	<div id="section_logo">
+	  <img id="menu" src="/images/btnBurger.png" onclick="controlPopMenu();return false;" alt="메뉴열기" title="메뉴열기"><span id="domain">VALHALLA</span>
+	</div>
+</div>
+<div id="section_top_navigation"></div>
+<div id="alert"></div>
+<div id="article">
+	<div id="section_left"></div>
+	<div id="section_location"></div>
+	<div id="section_body">
+		<h1>개발프로세스와 개발조직</h1>
+		<div><a class='btn' onclick='speakStart();return false;'>소리내어 읽기</a><a class='btn' onclick='speakStop();return false;'>그만읽기</a></div>
+		<div>&nbsp;</div>
+		<div id="articlecontent">
+
+<p>1. 보통 개발건은 아래와 같은 순서로 진행됩니다. 요약하면, 기획/요구사항정의 > 설계 > 구현 > 테스트 > 배포라 할 수 있습니다. 이 일련의 과정과 일정을 문서화하면 <b>WBS(Work Breakdown Structure)</b>가 됩니다. 
+<img class='lazyload' src='sph.gif'>
+<img class='lazyload' src='sp.gif'>
+
+<p>2. 개발은 개발자만 하는 것이 아닙니다. 웹개발만 예를 들면, PM, 웹기획자, DBA, 웹디자이너, 퍼블리셔, 개발자 등이 거의 매번 필요합니다. 
+<ul>
+	<li><b>PM(Project Manager)</b> : 관리총괄</li>
+	<li><b>웹기획자</b> : 현업과의 커뮤니케이션, 요구사항정의, IA/UX설계, 스토리보드/테스트시나리오 작성, 통합테스트</li>
+	<li><b>DBA(Database Administrator)</b> : 데이터베이스 설계, 스토어드 프로시저 작성, 튜닝. 소규모인 경우, PM이 대행</li>
+	<li><b>웹디자이너</b> : 웹기획자와 협업하여 개발할 화면의 시각화, 디자인 컨셉 및 아이덴티티 총괄. 소규모의 경우, 퍼블리셔 업무를 대행</li>
+	<li><b>퍼블리셔(Publisher)</b> : 웹디자이너가 시각화한 화면의 이미지를 html문서로 작성. CSS(Cascading Style Sheets)와 일부 UX와 관련된 JavaScript 코드 작성/관리</li>
+	<li><b>개발자</b> : 데이터의 CRUD를 담당하는 서버 프로그램과 퍼블리셔가 작성한 html문서를 제어하는 프로그램을 작성하고 단위 테스트를 수행. 소규모는 스토어드 프로시저 작성 대행. 규모가 커지면, Back-End 개발자와 Front-End 개발자로 분리.</li>
+</ul>
+<br>
+<p>이렇게 기능적으로 분리되다 보니, 생각보다 개발조직 내부에서 조차 갈등이 많이 발생합니다. 특히, 웹기획자와 웹디자이너, 웹기획자와 개발자 사이는 기본적으로 <b>적대적</b>입니다(<a href='https://www.slideshare.net/yongho/ss-11966428' target=_new>화성에서 온 개발자, 금성에서 온 기획자</a>).
+
+
+<div>&nbsp;</div>
+
+		</div>
+	</div>
+<div id="section_right"></div>
+</div>
+<div id="footer">
+	<div id="copyright">COPYRIGHTⓒ<b>VALHALLA</b>. ALL RIGHTS RESERVED.</div>
+	</div>
+</div>
+<div id="bottom">
+	<img id='goprevarticle' src='/images/prev.png' onclick="location.href='07.htm';">
+	<img id='gonextarticle' src='/images/next.png' onclick="location.href='09.htm';">
+
+</div>
+<img id="gotop" src="/images/top.png" onclick="goTop();" alt="go top" title="go top">
+<script src="/js/onloaded.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js" type="text/javascript"></script>
+</body>
+</html>

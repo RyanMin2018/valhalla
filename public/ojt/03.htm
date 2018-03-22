@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Valhalla Project</title>
+<link rel="canonical" href="http://n.mp1.co.kr/">
+<link rel="apple-touch-icon-precomposed" href="/favicon.ico">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/css/style.css" type="text/css" media="all">
+<style>
+#articlecontent ul {list-style-type:disc;margin-left:16px;}
+#articlecontent p {margin-bottom:30px;}
+.question {cursor:pointer;font-weight:bold;}
+.answer {display:none;padding-bottom:30px;}
+
+</style>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js" type="text/javascript"></script>
+<script src="/js/common.js" type="text/javascript"></script>
+<script src="/ojt/menu.js" type="text/javascript"></script>
+<script src="/js/SpeechText.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="section_pop_menu"><script>getMenu();</script></div>
+<div id="container">
+<div id="header">
+	<div id="section_logo">
+	  <img id="menu" src="/images/btnBurger.png" onclick="controlPopMenu();return false;" alt="메뉴열기" title="메뉴열기"><span id="domain">VALHALLA</span>
+	</div>
+</div>
+<div id="section_top_navigation"></div>
+<div id="alert"></div>
+<div id="article">
+	<div id="section_left"></div>
+	<div id="section_location"></div>
+	<div id="section_body">
+		<h1>도메인(Domain) </h1>
+		<div><a class='btn' onclick='speakStart();return false;'>소리내어 읽기</a><a class='btn' onclick='speakStop();return false;'>그만읽기</a></div>
+		<div>&nbsp;</div>
+		<div id="articlecontent">
+
+<p>네트워크에서 IP를 배웠습니다. IP는 주소로 되어 있습니다. MP1 웹서버 IP는 210.112.124.67입니다.
+<p><b>도메인</b>은 인터넷에 연결된(IP를 가진) 컴퓨터를 사람이 쉽게 기억하고 입력해 찾아갈 수 있도록 문자로 만든 인터넷주소입니다. http://mp1.co.kr을 입력하면 210.112.124.67로 연결시켜줍니다. 물론, http://210.112.124.67로도 연결됩니다. 도메인은 사실 없어도 됩니다. 
+
+<ul>
+	<li>
+		<a class='question'>'.'이라는 도메인을 아시나요? </a>
+		<div class='answer'>
+			루트 도메인입니다. 물론 접속되지는 않습니다. 그 밑에 국가코드최상위 도메인(ccTLD; Contry Code Top Level Domain)과 일반 최상위 도메인(gTLD, Generic Top Level Domain)이 놓여집니다. 
+			<img class='lazyload' src='https://한국인터넷정보센터.한국/images/renewal/imgDomainSys02.gif'>
+		</div>
+	</li>
+	<li>
+		<a class='question'>서브도메인? 호스트? </a>
+		<div class='answer'>
+			사실 도메인주소체계는 한국사람이 보기에 좀 맘에 안듭니다. "한국.기업.처음앤씨". "kr.co.cheoum-nc" 이렇게 해도 될 걸 말이죠. 
+			여하튼, mp1.co.kr은 <b>KRNIC(한국인터넷정보센터)</b>에 등록된 도메인입니다. 그 앞에 www.나 w1., h., n. 등을 붙이는 건 mp1.co.kr 도메인을 소유한 사람 맘입니다. 
+			하나의 도메인에 여러 대의 컴퓨터를 두고 여러 서비스를 할 수 있게 됩니다. 
+			이런걸 서브도메인이라 흔히 부릅니다.....만 공식 명칭은 <b>호스트(host)</b>입니다. 
+		</div>
+	</li>
+	<li>
+		<a class='question'>DNS(Domain Name Service) </a>
+		<div class='answer'>
+			<b>호스트</b>를 알았다면, 한가지 궁금한 게 있을 겁니다. 예를 들어, mp1.co.kr의 ip는 NIC에 등록되어 있겠지만, n.mp1.co.kr은? 
+			<br>바로 이런 이유로 각 도메인을 소유한 쪽에서 <b>DNS(도메인 네임 서비스)</b>라는 서비스를 통해 n.mp1.co.kr은 211.50.114.142라는 걸 알려주게 됩니다.
+		</div>
+	</li>
+	<li>
+		<a class='question'>하나의 도메인에 여러개의 IP를 등록할 수 있나? </a>
+		<div class='answer'>
+			NIC에는 하나만 등록할 수 있습니다. 하지만, DNS를 통해 분산시킬 수 있습니다. mp1도 실제 등록된 IP는 210.112.124.71입니다. 이 IP에서 네임서비스가 되고 있고, <b><a href='https://ko.wikipedia.org/wiki/%EC%9D%B8%ED%84%B0%EB%84%B7_%ED%8A%B8%EB%9E%98%ED%94%BD' target=_new>트래픽(traffic)</a></b>이 210.112.124.67나 210.112.124.68로 분산해 주도록 설정해 두었습니다. 이걸 <b><a href="http://docs.aws.amazon.com/ko_kr/elasticloadbalancing/latest/classic/introduction.html" target=_new>로드밸런싱(load balancing)</a></b>이라 부릅니다.
+		</div>
+	</li>
+	<li>도메인은 여기까지. <b>도메인</b>, <b>호스트</b>, <b>DNS</b>, <b>트래픽</b>, <b>로드밸런싱</b>은 기억해 두세요.
+	<li>참고 : <a href='https://xn--3e0bx5euxnjje69i70af08bea817g.xn--3e0b707e/jsp/resources/domainInfo/domainInfo.jsp' target='_new'>도메인이란?</a></li>
+</ul>
+
+<div>&nbsp;</div>
+
+		</div>
+	</div>
+<div id="section_right"></div>
+</div>
+<div id="footer">
+	<div id="copyright">COPYRIGHTⓒ<b>VALHALLA</b>. ALL RIGHTS RESERVED.</div>
+	</div>
+</div>
+<div id="bottom">
+	<img id='goprevarticle' src='/images/prev.png' onclick="location.href='02.htm';">
+	<img id='gonextarticle' src='/images/next.png' onclick="location.href='04.htm';">
+
+</div>
+<img id="gotop" src="/images/top.png" onclick="goTop();" alt="go top" title="go top">
+<script src="/js/onloaded.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js" type="text/javascript"></script>
+</body>
+</html>

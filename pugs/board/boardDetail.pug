@@ -1,0 +1,138 @@
+extends ../layout.pug
+
+block _BLOCK_TITLE_
+	title #{n.TITLE}
+
+block _BLOCK_SCRIPT_
+	script(src='/js/board.js' type='text/javascript')
+	script(src='/js/submit.js' type='text/javascript')
+	script(src='/js/formchecker.js' type='text/javascript')
+	script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js' type='text/javascript')
+	script(src='/js/boardDetail.js' type='text/javascript')
+	script(src='/js/SpeechText.js' type='text/javascript')
+	script(type='text/javascript').
+		$(document).ready(function(){
+			/* get next|prev article */
+			var getFollowArticle = function(article, direction, cb) {
+				$.ajax({
+					url:'/board/' + article +'/link/' + direction + '?s=#{searchword}',
+					success:function(r) {
+						if (r && r[0] && r[0]._id) cb(r[0]._id, r[0].TITLE, direction);
+					}
+				});
+			}
+			/* callback */
+			var setLink = function(strid, strTitle, direction) {
+				var text = (direction=='next') ? '다음글' : '이전글';
+				var id = '#go'+direction+'article';
+				$('#'+direction+'link').html('<a href="/board/'+strid+'?s=#{searchword}" title="'+strTitle+'">'+text+'</a>');
+				$(id).attr('onclick', 'location.href="/board/'+strid+'?s=#{searchword}";');
+				$(id).attr('title', strTitle);
+				$('#go'+direction+'text').text(strTitle);
+				$(id).mouseover(function(){$('#go'+direction+'text').show();});
+				$(id).mouseout(function(){$('#go'+direction+'text').hide();});
+			}
+			/* load  next|prev article */
+			getFollowArticle('#{n._id}', 'next', setLink);
+			getFollowArticle('#{n._id}', 'prev', setLink);
+		});
+	
+block _BLOCK_LOCATION_
+	<a href='/' title='홈으로 이동'>HOME</a> / <a href='/board' title='전체 글 목록으로'>BULLETIN</a>
+	
+block _BLOCK_CONTENT_
+	h1.title #{(n.TITLE)?n.TITLE:'제목없음'}
+	div.subtitle @ 
+		span#categorycd #{n.GRP_CD}
+		span#category Undefined Category
+		span &nbsp;| By #{n.USER_NM.toUpperCase()}
+		script.
+			var w = '#{global.comjs.getFormatDate(n.REG_DT).substring(0,10)}';
+			document.write(' | ' + w);
+			var m = '#{global.comjs.getFormatDate(n.EDIT_DT).substring(0,10)}';
+			document.write(((w!=m)?' | MODIFIED ' + m:''));
+			document.write(' | #{global.comjs.addComma(n.READ_CNT)} VIEWS');
+		br
+		span#speak 
+			a(href='#articlecontent' onclick="speakStart();return false;" title='소리내어 내용 읽기') 내용읽기
+			a(href='#articlecontent' onclick="speakContinue();return false;" title='소리내어 이어 읽기') 이어읽기
+			a(href='#articlecontent' onclick="speakStop();return false;" title='그만 읽기') 그만읽기
+		span#nextlink
+		span#prevlink
+		if (n.USER_ID==userid) 
+			a(href='/board/form/'+n._id+'?page='+page+'&s='+searchword title='수정하기') 수정
+			a(href='#article' onclick='drop("/board/'+n._id+'");return false;' title='삭제하기') 삭제
+	div.attached
+		ul
+			- filecnt = 0;
+			each f in n.FILES
+				if (f.FILE_MIMETYPE.indexOf('image')<0) 
+					li 
+						a(target='_new' href='/uploadfiles/'+f.FILE_PATH) #{f.FILE_NM}
+						| &nbsp; <font color='#aaa'>(<script>document.write(getFileSize('#{f.FILE_SIZE}'));</script>)</font>
+						- filecnt++;
+		div#filecnt(style='display:none;')=filecnt
+	div#articlecontent
+		each f in n.FILES
+			- if (f.FILE_MIMETYPE.indexOf('image')>-1) 
+				img.lazyload(src='/uploadfiles/'+f.FILE_PATH data-original='/uploadfiles/'+f.FILE_PATH alt=f.FILE_NM title=f.FILE_NM)
+
+		- if (n.CONTENT)
+			each line in n.CONTENT.split(/\n/)
+				= line
+				br
+
+	form(name='frmEnt' id='frmEnt' method='post' action='/board/'+n._id+'/comment' onsubmit='return regist();')
+		input(type='hidden' name='commentid' id='commentid')
+		input(type='hidden' name='grpcd' value=n.GRP_CD)
+		input(type='hidden' name='page' value=page)
+		input(type='hidden' name='s' value=searchword)
+		input(type='text' name='comment' id='comment' style='width:100%' placeholder='당신의 생각을 덧붙이세요. 엔터키를 누르면 저장됩니다.' title='댓글등록, 댓글을 쓰시고 엔터키를 누르면 저장됩니다.')
+		<!-- keydown() function in boardDetail.js -->
+
+	table.comment(style='width:100%')
+		colgroup
+			col(style='width:*;')
+			col(style='width:20px;')
+		tbody
+		each line in n.COMMENTS
+			<tr class="#{line._id}">
+				td.writer #{(line.C_USER_NM)?line.C_USER_NM.toUpperCase():''}
+					span &nbsp;(#{global.comjs.getFormatDate(line.REG_DT)})
+				td.n.writer(style='vertical-align:top;')
+					-if (line.C_USER_ID === userid)
+						<img src='/images/btnDrop.png' onclick='dropComment("#{n._id}","#{line._id}");' alt='댓글삭제' title='댓글삭제'>
+			<tr class="#{line._id}">
+				td(colspan='2') #{line.COMMENT}
+				
+	div(id='section_bottom_button')
+		a.btn(href='/board/?c='+n.GRP_CD+'&page='+page+'&s='+searchword title='목록으로') 목록으로
+		if (n.USER_ID==userid) 
+			a.btn(href='/board/form/'+n._id+'?page='+page+'&s='+searchword title='수정하기') 포스트 수정
+			a.btn(href='#section_bottom_button' onclick='drop("/board/'+n._id+'");return false;' title='삭제하기') 포스트 삭제
+
+block _BLOCK_BOTTOM_
+	span#goprevtext.gotext
+	span#gonexttext.gotext
+	img#goprevarticle(src='/images/prev.png' alt='go previous article' title='go previous article')
+	img#gonextarticle(src='/images/next.png' alt='go next article' title='go next article')
+
+block _BLOCK_SCRIPT_POST_
+	script.
+		var start = false;
+		var st = new SpeechText('#{n._id}', 'ko-KR', 'articlecontent');
+		function speakStart() {
+			st.start();
+			start = true;
+		};
+		function speakContinue() {
+			st.keepon();
+			start = true;
+		};
+		function speakStop() {
+			st.stop();
+			start = false;
+		};
+		st.msg.onend = function(e) {
+			if (start) speakContinue();
+		};

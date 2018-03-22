@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Valhalla Project</title>
+<link rel="canonical" href="http://n.mp1.co.kr/">
+<link rel="apple-touch-icon-precomposed" href="/favicon.ico">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/css/style.css" type="text/css" media="all">
+<style>
+#articlecontent ul {list-style-type:disc;margin-left:16px;}
+#articlecontent p {margin-bottom:30px;}
+.question {cursor:pointer;font-weight:bold;}
+.answer {display:none;padding-bottom:30px;}
+
+</style>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js" type="text/javascript"></script>
+<script src="/js/common.js" type="text/javascript"></script>
+<script src="/ojt/menu.js" type="text/javascript"></script>
+<script src="/js/SpeechText.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="section_pop_menu"><script>getMenu();</script></div>
+<div id="container">
+<div id="header">
+	<div id="section_logo">
+	  <img id="menu" src="/images/btnBurger.png" onclick="controlPopMenu();return false;" alt="메뉴열기" title="메뉴열기"><span id="domain">VALHALLA</span>
+	</div>
+</div>
+<div id="section_top_navigation"></div>
+<div id="alert"></div>
+<div id="article">
+	<div id="section_left"></div>
+	<div id="section_location"></div>
+	<div id="section_body">
+		<h1>서버(Server) </h1>
+		<div><a class='btn' onclick='speakStart();return false;'>소리내어 읽기</a><a class='btn' onclick='speakStop();return false;'>그만읽기</a></div>
+		<div>&nbsp;</div>
+		<div id="articlecontent">
+
+<p>도메인에서 한 번 다뤘는데, 정확하게 다시 정의하자면, <b>서버</b>는 <b>클라이언트에게 네트워크를 통해 정보나 서비스를 제공하는 컴퓨터 또는 프로그램</b>을 뜻합니다. 잘 이해되시겠죠?
+
+<ul>
+	<li>
+		<a class='question'>웹서버(Web Server) </a>
+		<div class='answer'>
+			http 서비스를 위한 서버를 의미합니다. 클라이언트로부터 요청을 받으면 html 문서를 보내줍니다. 웹서버 프로그램을 의미하기도 하고, 웹서버 프로그램 작동이 주된 역할인 컴퓨터를 의미하기도 합니다.
+			<br>아파치(apache)나 iis 등이 대표적인 웹서버입니다. 요즘엔 nginx도 많이 씁니다. n.mp1.co.kr은 nginx를 씁니다. 
+			<img class='lazyload' src='https://news.netcraft.com/wp-content/uploads/2012/06/wpid-overallc1.png'>
+		</div>
+	</li>
+	<li>
+		<a class='question'>웹어플리케이션서버(WAS; Web Application Server) </a>
+		<div class='answer'>
+			예를 들어, 데이터베이스에 있는 정보를 가져와 클라이언트가 원하는 형태로 문서를 만드는 프로그램이 있다고 합시다. 그 프로그램을 작동시켜 웹서버를 통해 클라이언트에게 전달하는 것이 WAS입니다. 
+			<br>엄밀하게는 웹컨테이너와 웹서버를 합한 것을 WAS라 하는데, 그렇게까지 기억해둘 필요는 없으십니다.
+			<br>mp1에는 <b>톰캣(tomcat)</b>을 사용합니다. 규칙만 지키면 무료이고, 자바언어로 개발된 웹용 프로그램을 돌릴 수 있습니다. 
+			<img class='lazyload' src='https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Tomcat-logo.svg/500px-Tomcat-logo.svg.png'>
+		</div>
+	</li>
+	<li>
+		<a class='question'>디비서버(Database Server) </a>
+		<div class='answer'>
+			데이터베이스 관리 프로그램(DBMS; Database Management System)이 설치된 서버를 의미합니다. 
+		</div>
+	</li>
+	<li>
+		<a class='question'>이미지서버(Image Server) </a>
+		<div class='answer'>
+			html에 사용되는 정적 데이터들을 모아둔 웹서버입니다. 웹서버의 부하(traffic)를 줄이기 위해 따로 구성합니다. mp1은 image.mp1.co.kr로 분리되어 있습니다.
+		</div>
+	</li>
+	<li>
+		<a class='question'>정적 데이터? 동적 데이터? </a>
+		<div class='answer'>
+			변경되지 않는 데이터를 <b>정적 데이터</b>라 합니다. 주로 이미지, 동영상 등입니다.
+			<br>클라이언트의 요청에 따라 변경되는 데이터를 <b>동적 데이터</b>라 합니다. 주로 검색 조건이나 시간에 따라 데이터베이스에서 결과를 가져와 제공되는 데이터를 의미합니다. 보통, 웹개발자는 이 동적 데이터를 다루는 사람들을 의미합니다. 
+			<br>일반적으로 정적 데이터는 웹서버에서, 동적 데이터는 웹어플리케이션서버에서 처리합니다. 당연하겠죠?
+		</div>
+	</li>
+		<li>
+		<a class='question'>캐시서버(Cache Server)/CDN(Content Delivery Network) </a>
+		<div class='answer'>
+			아무리 네트워크 환경이 좋아도 미국에 서버를 두고 서비스하는 것과 한국에 서버를 두고 하는 것은 속도의 차이가 날 수 밖에 없습니다. 
+			그래서, 사용자 가까이에 제공할 컨텐츠를 복제해서 제공하는 서버를 만들기도 하는데, 이것을 캐시서버라 합니다. 캐시서버에서 제공할 수 없는 새로운 요청만 원래의 서버에 요청하게 구성합니다.
+			이러한 구성을 <b>CDN(Content Delivery Network)</b>라 합니다.  
+		</div>
+	</li>
+	<li>
+		<a class='question'>IDC(Internet Data Center) </a>
+		<div class='answer'>
+			인터넷데이터센터(IDC)는 서버 컴퓨터를 안전하게 보관할 장소와 빠른 네트워크 회선 등을 제공하는 시설을 말합니다. 서버호텔이라고 이해하시면 됩니다. 들어가보면 컴퓨터가 가득합니다. 시끄럽고 정말 춥고 건조합니다. 전자파로 샤워하는 느낌입니다. 
+			케이지를 만들고, 그 안에 <b>랙</b>을 넣고, <b>랙</b>에 스위치와 서버를 차곡차곡 쌓아둡니다.
+			<br>처음앤씨는 역삼동에 있는 IDC를 이용합니다. 사무실의 서버룸은 통신설비와 내부용 서버 등이 들어 있습니다. 
+			<img class='lazyload' src='http://www.goatking.com/wp-content/uploads/2012/02/Random-Data-Center-Cage-found-on-Internet.png'>
+		</div>
+	</li>
+	<li>
+		<a class='question'>분산 네트워크 서비스 </a>
+		<div class='answer'>
+			클라이언트 수가 늘어나면 수십대의 컴퓨터로도 감당이 안되기 시작합니다. 분산이라는 말은, 트래픽이나 데이터 등을 나눈다는 것을 의미합니다. 보통 웹서버와 웹어플리케이션서버부터 분산을 시작하고, 데이터까지 분산해야할 정도면... 부자가 되신겁니다. 
+		</div>
+	</li>
+	<li>
+		<a class='question'>서버용 컴퓨터는 PC와 다른가? </a>
+		<div class='answer'>
+			PC를 서버로 써도 됩니다. 다만, <b>랙</b>에 들어갈 수 있도록 제작되고, 목적에 맞게 성능이 강화된 컴퓨터를 서버용 컴퓨터로 보통 부릅니다.
+			<br>사진은 제가 좋아하는 hp사의 580서버입니다. 분홍색(?) 하나에 하드디스크 하나를 꼿을 수 있다고 보시면 됩니다. 
+			<img class='lazyload' src='http://3.imimg.com/data3/YC/MW/MY-3094787/hp-proliant-dl-580-g5-server-500x500.jpeg'>
+		</div>
+	</li>
+	<li>
+		<a class='question'>하나의 컴퓨터에 웹서버, 웹어플리케이션서버, 디비서버를 다 올려놓고 써도 되지 않나? </a>
+		<div class='answer'>
+			됩니다. 사용자가 많으면 그때 후회해도 됩니다.
+		</div>
+	</li>
+</ul>
+
+<div>&nbsp;</div>
+
+		</div>
+	</div>
+<div id="section_right"></div>
+</div>
+<div id="footer">
+	<div id="copyright">COPYRIGHTⓒ<b>VALHALLA</b>. ALL RIGHTS RESERVED.</div>
+	</div>
+</div>
+<div id="bottom">
+	<img id='goprevarticle' src='/images/prev.png' onclick="location.href='03.htm';">
+	<img id='gonextarticle' src='/images/next.png' onclick="location.href='05.htm';">
+
+</div>
+<img id="gotop" src="/images/top.png" onclick="goTop();" alt="go top" title="go top">
+<script src="/js/onloaded.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js" type="text/javascript"></script>
+</body>
+</html>

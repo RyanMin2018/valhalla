@@ -1,0 +1,61 @@
+extends ../layout.pug
+
+block _BLOCK_TITLE_
+	title List of posts
+
+block _BLOCK_SCRIPT_
+	script(src='/js/paging.js' type='text/javascript')
+	script(src='/js/board.js' type='text/javascript')
+	
+block _BLOCK_LOCATION_
+	<a href='/' title='홈으로 이동'>HOME</a> / <a href='/board' title='전체 글 목록으로'>BULLETIN</a>
+
+block _BLOCK_CONTENT_
+	h1 
+		b#category Bulletin Board
+	div.subtitle 
+		span#categorycd #{category}
+		span TOTAL <b>#{global.comjs.addComma(cnt)}</b> POSTS, PAGE <b>#{global.comjs.addComma(current)}</b> OF <b>#{global.comjs.addComma(total)}</b>
+		- if (searchword && searchword.length>0) 
+			| &nbsp;FOR <b>#{searchword}</b>
+	table(id='BoardList')
+		caption(style='display:none;') 글목록
+		colgroup
+			col(style='width:*;')
+			col.mobilehide(style='width:100px;')
+			col.mobilehide(style='width:100px;')
+			col.mobilehide(style='width:60px;')
+		tbody
+			tr.mobilehide
+				th(scope='col' style='text-align:left') 제목
+				th(scope='col' style='text-align:left;') 글쓴이
+				th(scope='col' style='text-align:left;') 등록일
+				th(scope='col' style='text-align:right;') 조회
+			- if (list.length>0) {
+				each n in list
+					tr
+						td.t(onclick="location.href='/board/"+n._id+"?page="+current+"&s="+searchword+"';")
+							a(href='/board/'+n._id+'?page='+current+'&s='+searchword title='본문보기') #{(n.TITLE)?n.TITLE:'제목없음'}
+							- if (n.COMMENTS_CNT>0) 
+								| &nbsp;<span class='viewed'>#{global.comjs.addComma(n.COMMENTS_CNT)}</span>
+							div.m= (n.USER_NM).toUpperCase() + ' | ' + global.comjs.getFormatDate(n.REG_DT).substring(0,10)
+						td.t.mobilehide= n.USER_NM
+						td.t.mobilehide= global.comjs.getFormatDate(n.REG_DT).substring(0,10)
+						td.n.mobilehide= global.comjs.addComma(n.READ_CNT)
+			- } else {
+				tr
+					td.t(colspan='2' onclick="location.href='/board/form/new/?c="+category+"';") 웁스! 아직 아무도 글을 쓰지 않았습니다. 첫번째 글을 남겨주세요.
+					td.t.mobilehide 
+					td.d.mobilehide 
+			- }
+	form(name='frmSearch' id='frmSearch' method='get' action='/board/')
+		input(type='hidden' name='c' value=category)
+		div#pagination
+			script getPaging(#{current}, #{cnt}, #{limit}, 10, '&c=#{category}&s=#{searchword}'); 
+			span.searchbox
+				label(for='s' style='display:none;') 검색
+				input(type='text' name='s' id='s' value=searchword placeholder='Search')
+	div(id='section_bottom_button')
+		a.btn(href='/board/form/new/?c='+category title='새글쓰기') 새로운 포스트
+
+

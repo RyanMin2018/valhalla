@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Valhalla Project</title>
+<link rel="canonical" href="http://n.mp1.co.kr/">
+<link rel="apple-touch-icon-precomposed" href="/favicon.ico">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/css/style.css" type="text/css" media="all">
+<style>
+#articlecontent ul {list-style-type:disc;margin-left:16px;}
+#articlecontent p {margin-bottom:30px;}
+.question {cursor:pointer;font-weight:bold;}
+.answer {display:none;padding-bottom:30px;}
+
+</style>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js" type="text/javascript"></script>
+<script src="/js/common.js" type="text/javascript"></script>
+<script src="/ojt/menu.js" type="text/javascript"></script>
+<script src="/js/SpeechText.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="section_pop_menu"><script>getMenu();</script></div>
+<div id="container">
+<div id="header">
+	<div id="section_logo">
+	  <img id="menu" src="/images/btnBurger.png" onclick="controlPopMenu();return false;" alt="메뉴열기" title="메뉴열기"><span id="domain">VALHALLA</span>
+	</div>
+</div>
+<div id="section_top_navigation"></div>
+<div id="alert"></div>
+<div id="article">
+	<div id="section_left"></div>
+	<div id="section_location"></div>
+	<div id="section_body">
+		<h1>모바일</h1>
+		<div><a class='btn' onclick='speakStart();return false;'>소리내어 읽기</a><a class='btn' onclick='speakStop();return false;'>그만읽기</a></div>
+		<div>&nbsp;</div>
+		<div id="articlecontent">
+
+<p>모바일과 관련되어 혼동되는 용어들과 트랜디한 용어들을 소개합니다.
+
+<ul>
+	<li><a class='question'>모바일앱? 모바일웹? </a>
+		<div class='answer'>
+			보통 어플이라 불리는 것이 모바일앱이고, 모바일 브라우저에서 볼 수 있는 웹을 모바일웹이라 부릅니다. 
+			<br>모바일앱은 단말기 종속적이고, 모바일웹은 브라우저에서 작동합니다. 
+			<br>모바일앱은 안드로이드용, 아이폰용 따로 만들어야 하고, 모바일웹은 하나만 만들면 됩니다.
+			<br>모바일앱은 카메라 등 단말기의 자원을 자유롭게 활용할 수 있지만, 모바일웹은 브라우저의 기능에 종속적입니다.
+			<br>모바일앱은 오프라인에서도 사용할 수 있도록 할 수 있지만, 모바일웹은 인터넷 환경에서만 기능합니다. 
+		</div>
+	</li>
+	<li><a class='question'>웹앱? 하이브리드앱? 네이티브앱? </a>
+		<div class='answer'>
+			앱의 고유한 아이덴티티를 본딴 모바일웹을 그대로 앱으로 만든 것이 <b>웹앱</b>이라 하고, <b>하이브리드앱</b>은 앱에 모바일웹을 호출 또는 내장하거나 모바일웹과 앱의 기능을 결합한 것을 의미합니다.  
+			그 밖에, 웹이 배제된 것을 <b>네이티브앱</b>이라 구분해 부릅니다. 
+		</div>
+	</li>
+	<li><a class='question'>반응형웹(Responsive Web)/적응형웹(Adaptive Web) </a>
+		<div class='answer'>
+			<p>PC에 맞게 웹페이지를 만들면, 모바일에서는 보기 힘듭니다. 그렇다고 매번 PC용, 모바일용 두가지를 만들자니 번거롭습니다. 
+			그래서 따로 만들지 않아도 화면의 크기에 맞게 화면의 레이아웃을 바꾸어 줄 수 있는 방법을 찾았고, 그것이 반응형 웹입니다. 
+			주로 CSS(Cascading Style Sheets)에서 처리되므로, 퍼블리셔의 역량이 발휘되는 분야이기도 합니다. 
+			<p>하지만, 반응형웹은 화면의 복잡도가 높아지고, 화면의 크기에 따라 최적화하는 것에도 한계가 있기 때문에, 번거로움을 감수하고 화면크기에 맞게 제작하는 곳도 적지 않습니다. 이런 것을 적응형 웹이라 합니다. 
+			<p>어느 것이 더 좋은 선택인지는 그때 그때 다릅니다. (<a href='http://www.comworld.co.kr/news/articleView.html?idxno=49000' target=_new>참고</a>)
+		</div>
+	</li>
+	<li><a class='question'>웨어러블(Wearable) </a>
+		<div class='answer'>
+			<b>몸에 붙이거나 입는 기기</b>를 말합니다. 스마트워치가 대표적입니다. 현재 웨어러블은 이른바 '죽음의 계곡'을 지나고 있습니다. 
+			<img class='lazyload' src='http://i0.wp.com/www.yoonsupchoi.com/wp-content/uploads/2017/04/EmergingTech_Graphic-2015.png'>
+		</div>
+	</li>
+	<li><a class='question'>LBS(Location-Based Service), BLE(Bluetooth Low Energy) </a>
+		<div class='answer'>
+			휴대폰을 통해 이용자의 위치를 알 수 있다는 것은 <b>지역기반의 서비스</b>가 가능해졌다는 의미이고, <b>저전력 블루투스 기술</b>이 등장하면서 휴대폰으로 Push Service(사용자가 아무 활동을 하지 않아도 정보를 사용자에게 전달하는 것)가 가능해졌습니다.
+			길을 지나가는데 "어이, 아저씨? 배 안고파? 오른쪽으로 고개를 돌려봐. 30% 할인된 가격으로 삼겹살 어때?" 이럴 수 있다는 거죠. 
+		</div>
+	</li>
+	<li><a class='question'>가상현실(Virtual Reality), 증강현실(Augmented Reality) </a>
+		<div class='answer'>
+			실제와 유사하지만 실제가 아닌 환경이나 상황을 가상현실이라 하고, 현실 기반 위에 실제와 같은 경험을 제공하는 것을 증강현실이라 합니다. 
+			따라서, 포켓몬고는? 증강현실입니다. <a href='https://www.youtube.com/watch?v=Sf8QgfD0P80' target=_new>이건 꼭 보세요</a>
+		</div>
+	</li>
+	<li><a class='question'>IoT(Internet of Things; 사물인터넷) </a>
+		<div class='answer'>
+			<b>각종 사물에 센서와 통신 기능을 내장해 인터넷에 연결하는 것</b>을 IoT라 합니다. 웨어러블도 IoT의 하나라 할 수 있습니다. 냉장고나 현관문, 창문, 보일러 등을 연결해 '홈스마트시스템'으로 발전하고 있고, 
+			심박동수를 재거나 하는 밴드에서 나오는 데이터로 건강상태를 진단하거나 필요하면 주치의에게 통지하는 웨어러블도 주목받고 있고, 
+			도로를 달리는 차량들에 부착된 센서의 정보를 읽어 인공지능이 주행을 돕는 자율주행차량도 IoT기술을 기반으로 하고 있습니다. 
+			생산라인, 물류시스템에도 활발하게 적용되고 있습니다. 
+		</div>
+	</li>
+	<li><a class='question'>컨시어지(Concierge) </a>
+		<div class='answer'>
+			<p><b>개인비서서비스</b>를 말합니다. IoT기술과 음성인식기술, 인공지능기술의 융합이 필요합니다. 예를 들어, "내일 영화표 예매해줘"라고 말하면, 인공지능이 내일 날씨와 일정, 동선, 취향, 평점, 좋아하는 감독이나 배우 등을 고려해 영화예매 사이트에서 결제까지 끝내고 시간이 되면 알람도 주게 됩니다. 
+			<p>딱히 모바일과 관련은 없으나, 컨시어지와 관련해서, 일차적으로는 챗봇(ChatBot)이 전화상담원을 대체하기 위한 기술개발이 진행되고 있고, 이 기술이 완료되면, 법률서비스, 세무서비스로의 확장은 의외로 쉽다 합니다. 
+			금융권의 '로보어드바이저'도 컨시어지의 일종이라 볼 수 있는데, 인간을 대신해 자산을 운용하는 기술을 의미하고, 인간보다 높은 수익율을 보여주기 시작했다 합니다.
+			<p><img class='lazyload' src='http://image.hankookilbo.com/i.aspx?Guid=3722557e206c4060aecdc6fb89d06459&Month=201708&size=640'>
+		</div>
+	</li>
+	<li><a class='question'>디지털멀미 </a>
+		<div class='answer'>
+			<p><b>디지털기기의 사용 중 인지부조화로 인한 멀미</b>라 하는데, 버스를 타다 멀미가 나는 증상처럼, 가상현실도 어지러움과 메스꺼움을 느낄 수 있습니다. 
+			실제 디지털멀미는 VR 산업의 발목을 잡고 있습니다. 
+		</div>
+	</li>
+</ul>
+
+<div>&nbsp;</div>
+
+		</div>
+	</div>
+<div id="section_right"></div>
+</div>
+<div id="footer">
+	<div id="copyright">COPYRIGHTⓒ<b>VALHALLA</b>. ALL RIGHTS RESERVED.</div>
+	</div>
+</div>
+<div id="bottom">
+	<img id='goprevarticle' src='/images/prev.png' onclick="location.href='08.htm';">
+	<img id='gonextarticle' src='/images/next.png' onclick="location.href='10.htm';">
+
+</div>
+<img id="gotop" src="/images/top.png" onclick="goTop();" alt="go top" title="go top">
+<script src="/js/onloaded.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js" type="text/javascript"></script>
+</body>
+</html>
