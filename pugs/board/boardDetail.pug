@@ -72,11 +72,10 @@ block _BLOCK_CONTENT_
 						| &nbsp; <font color='#aaa'>(<script>document.write(getFileSize('#{f.FILE_SIZE}'));</script>)</font>
 						- filecnt++;
 		div#filecnt(style='display:none;')=filecnt
+	each f in n.FILES
+		- if (f.FILE_MIMETYPE.indexOf('image')>-1) 
+			img.lazyload.article_imgs(src='/uploadfiles/'+f.FILE_PATH data-original='/uploadfiles/'+f.FILE_PATH alt=f.FILE_NM title=f.FILE_NM)
 	div#articlecontent
-		each f in n.FILES
-			- if (f.FILE_MIMETYPE.indexOf('image')>-1) 
-				img.lazyload(src='/uploadfiles/'+f.FILE_PATH data-original='/uploadfiles/'+f.FILE_PATH alt=f.FILE_NM title=f.FILE_NM)
-
 		- if (n.CONTENT)
 			each line in n.CONTENT.split(/\n/)
 				= line

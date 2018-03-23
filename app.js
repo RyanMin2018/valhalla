@@ -1,7 +1,7 @@
-global.strDomainName  = '<your.domain>';
+global.strDomainName  = '127.0.0.1';
 global.strDomainUser  = 'VALHALLA';
-global.strDomainEmail = '<your.email.addr>';
-global.strCryptoKey   = '<your.crypto.key>';
+global.strDomainEmail = 'dolgamza@gmail.com';
+global.strCryptoKey   = 'dolgamzabounce';
 global.strSeparator   = '__________';
 global.comjs = require('./exports/common.js');
 
@@ -9,7 +9,7 @@ var intPort = 5000;
 
 var express        = require('express');
 var http           = require('http');
-var https          = require('https');
+// var https          = require('https');
 var app            = express();
 // var cookie         = require('cookie-parser');
 var bodyParser     = require('body-parser');
@@ -54,9 +54,11 @@ var httpServer = http.createServer(app).listen(intPort, function() {
         console.log('Express Server is running');
 });
 
+/*
 var httpsServer = https.createServer(options, app).listen(443, function(){
 	console.log('Https Server is running at 443 port');
 });
+*/
 
 /* set router */
 require('./routes')(app);

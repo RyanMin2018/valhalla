@@ -163,6 +163,8 @@ textarea {resize:none;height:300px;}
 #sheet {font-size:0.7em;}
 #sheet table {max-width:900px;}
 
+img.article_imgs {float:right;margin:0 0 10px 20px;border:1px solid #ddd;max-width:60%;}
+
 
 /* responsive web */
 @media only screen and (max-width : 700px) {
@@ -179,6 +181,7 @@ textarea {resize:none;height:300px;}
 	td {padding-left:0px;padding-right:0px;}
 	td.t {overflow:visible;white-space:normal;line-height:1.4em;}
 	td div.m {display:block;color:#999;font-size:0.8em;font-family:'Noto Sans KR';overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+	img.article_imgs {margin:0 0 10px 0;width:100%;max-width:100%;}
 }
 
 /* placeholder */
